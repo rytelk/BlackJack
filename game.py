@@ -17,13 +17,13 @@ class Game:
            self.player_cards.append(self.deck.GetTopCardValue(self.player_has_ace()))
 
         if self.get_player_cards_sum() > 21:
-            win = 0
+            win = -1
         if self.get_player_cards_sum() == 21:
             win = 1
         elif self.get_player_cards_sum() >= self.get_dealer_cards_sum():
             win = 1
         else:
-            win = 0
+            win = -1
 
         return GameResult(self.get_player_cards_sum(), self.showing_card, win)
 
