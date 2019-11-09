@@ -1,4 +1,5 @@
 from deck import Deck
+from game_result import GameResult
 
 class Game:
 
@@ -24,8 +25,7 @@ class Game:
         else:
             win = 0
 
-        # TODO: Rysowanie wykresu
-
+        return GameResult(self.get_player_cards_sum(), self.showing_card, win)
 
     def init_dealer_cards(self):
         self.showing_card = self.deck.GetTopCardValue(False)
