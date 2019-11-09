@@ -8,12 +8,6 @@ from matplotlib import cm;
 from matplotlib.ticker import LinearLocator, FormatStrFormatter;
 import numpy as np;
 
-def find(f, seq):
-  """Return first item in sequence where f(item) == True."""
-  for item in seq:
-    if f(item):
-      return item
-
 def get_plot_groups():
     sorted_groups = sorted(game_results, key=lambda a: (a.player_sum, a.dealer_card_showing))
     groups = groupby(sorted_groups, lambda a: (a.player_sum, a.dealer_card_showing))
@@ -33,10 +27,12 @@ def plot(plot_groups, start_check_limit):
     Y = np.arange(start_check_limit, 21, 1)
     X, Y = np.meshgrid(X, Y)
 
-    for x in X:
-        for y in Y:
-            group = next(x for x in plot_groups if x.dealer_card_showing == x and x.player_sum == y)
-
+    for x_array in X:
+        for y_array in Y:
+            for x in x_array:
+                for y in y_array:
+                    group = find(lambda x: x.dealer_card_showing == x and x.player_sum == y, plot_groups)
+                    x = 5
 
     surf = ax.plot_surface(X, Y, Z, cmap = cm.coolwarm, linewidth = 0, antialiased = False);
 
