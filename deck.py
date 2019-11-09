@@ -12,9 +12,10 @@ class Deck:
     def __init__(self, _usableAce):
         self.usableAce = _usableAce;
         self.cards = [];
+
         for color in ["TREFL", "KARO", "KIER", "PIK"]:
             for figure in ([str(k) for k in range(2, 11)] + ["J", "Q", "K", "A"]):
-                cards.append( Card(figure, color) );
+                self.cards.append( Card(figure, color) );
         random.shuffle(self.cards);
         return;
 
