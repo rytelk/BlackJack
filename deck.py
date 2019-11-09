@@ -9,7 +9,8 @@ class Card:
 
 # ----------------------------------------------------------------------------------------------------
 class Deck:
-    def __init__(self):
+    def __init__(self, _usableAce):
+        self.usableAce = _usableAce;
         self.cards = [];
         for color in ["TREFL", "KARO", "KIER", "PIK"]:
             for figure in ([str(k) for k in range(2, 11)] + ["J", "Q", "K", "A"]):
@@ -17,10 +18,20 @@ class Deck:
         random.shuffle(self.cards);
         return;
 
-    def getTopCard(self):
-        if not self.cards:
-            print("Deck is empty, error !");
-            return;
+    def GetTopCardValue(self, player_second_ace):
+        topCardFigure = self.cards[-1].figure;
+        topCardValue = 0;
+        
+        if topCardFigure == "A":
+            if self.usableAce and player_second_ace:
+                topCardValue = 1;
+            else:
+                topCardValue = 11;
+        elif topCardFigure in ["J", "Q", "K"]:
+            topCardValue = 10;
+        else:
+            topCardValue = int(topCardFigure);
+        
         self.cards.pop();
-        return;
+        return topCardValue;
 # ----------------------------------------------------------------------------------------------------
