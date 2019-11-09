@@ -36,7 +36,7 @@ def plot(plot_groups, start_check_limit):
                     group = find(lambda x: x.dealer_card_showing == x and x.player_sum == y, plot_groups)
                     x = 5
                     z_array.append(group.win)
-                    
+            Z.append(z_array)
 
 
     surf = ax.plot_surface(X, Y, Z, cmap = cm.coolwarm, linewidth = 0, antialiased = False);
