@@ -23,8 +23,8 @@ def plot(plot_groups, start_check_limit):
     fig = plt.figure();
     ax = fig.gca(projection = '3d');
 
-    X = np.arange(2, 11, 1)
-    Y = np.arange(start_check_limit, 21, 1)
+    X = np.arange(2, 12, 1)
+    Y = np.arange(start_check_limit, 22, 1)
     X, Y = np.meshgrid(X, Y)
 
     Z = []
@@ -34,11 +34,10 @@ def plot(plot_groups, start_check_limit):
             for x in x_array:
                 for y in y_array:
                     group = next(pg for pg in plot_groups if pg.dealer_card_showing == x and pg.player_sum == y)
-                    x = 5
                     z_array.append(group.win)
             Z.append(z_array)
 
-
+    Z = np.array(Z)
     surf = ax.plot_surface(X, Y, Z, cmap = cm.coolwarm, linewidth = 0, antialiased = False);
 
     # Customize the z axis.
@@ -53,9 +52,9 @@ def plot(plot_groups, start_check_limit):
 if __name__ == '__main__':
     usable_ace = False
 
-    start_check_limit = 10
+    start_check_limit = 15
     game_results = []
-    for iteration in range(1000):
+    for iteration in range(20000):
         result = Game(usable_ace).play(start_check_limit)
         game_results.append(result)
 
