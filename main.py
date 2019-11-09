@@ -33,7 +33,7 @@ def plot(plot_groups, start_check_limit):
             z_array = []
             for x in x_array:
                 for y in y_array:
-                    group = find(lambda x: x.dealer_card_showing == x and x.player_sum == y, plot_groups)
+                    group = next(pg for pg in plot_groups if pg.dealer_card_showing == x and pg.player_sum == y)
                     x = 5
                     z_array.append(group.win)
             Z.append(z_array)
