@@ -27,12 +27,17 @@ def plot(plot_groups, start_check_limit):
     Y = np.arange(start_check_limit, 21, 1)
     X, Y = np.meshgrid(X, Y)
 
+    Z = []
     for x_array in X:
         for y_array in Y:
+            z_array = []
             for x in x_array:
                 for y in y_array:
                     group = find(lambda x: x.dealer_card_showing == x and x.player_sum == y, plot_groups)
                     x = 5
+                    z_array.append(group.win)
+                    
+
 
     surf = ax.plot_surface(X, Y, Z, cmap = cm.coolwarm, linewidth = 0, antialiased = False);
 
