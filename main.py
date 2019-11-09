@@ -31,10 +31,9 @@ def plot(plot_groups, start_check_limit):
     for x_array in X:
         for y_array in Y:
             z_array = []
-            for x in x_array:
-                for y in y_array:
-                    group = next(pg for pg in plot_groups if pg.dealer_card_showing == x and pg.player_sum == y)
-                    z_array.append(group.win)
+            for point in zip(x_array, y_array):
+                group = next(pg for pg in plot_groups if pg.dealer_card_showing == point[0] and pg.player_sum == point[1])
+                z_array.append(group.win)
             Z.append(z_array)
 
     Z = np.array(Z)
