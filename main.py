@@ -28,13 +28,12 @@ def plot(plot_groups, start_check_limit):
     X, Y = np.meshgrid(X, Y)
 
     Z = []
-    for x_array in X:
-        for y_array in Y:
-            z_array = []
-            for point in zip(x_array, y_array):
-                group = next(pg for pg in plot_groups if pg.dealer_card_showing == point[0] and pg.player_sum == point[1])
-                z_array.append(group.win)
-            Z.append(z_array)
+    for arrays in zip(X, Y):
+        z_array = []
+        for point in zip(arrays[0], arrays[1]):
+            group = next(pg for pg in plot_groups if pg.dealer_card_showing == point[0] and pg.player_sum == point[1])
+            z_array.append(group.win)
+        Z.append(z_array)
 
     Z = np.array(Z)
     surf = ax.plot_surface(X, Y, Z, cmap = cm.coolwarm, linewidth = 0, antialiased = False);
@@ -53,7 +52,7 @@ if __name__ == '__main__':
 
     start_check_limit = 15
     game_results = []
-    for iteration in range(20000):
+    for iteration in range(100000):
         result = Game(usable_ace).play(start_check_limit)
         game_results.append(result)
 
