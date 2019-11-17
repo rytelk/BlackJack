@@ -19,7 +19,7 @@ def get_plot_groups():
         plot_groups.append(GameResult(group[0].player_sum, group[0].dealer_card_showing, wins_avg))
     return plot_groups
 
-def plot(plot_groups, start_check_limit):
+def plot(plot_groups, start_check_limit, usable_ace, save_to_file=False):
     fig = plt.figure();
     ax = fig.gca(projection = '3d');
 
@@ -45,16 +45,28 @@ def plot(plot_groups, start_check_limit):
 
     # Add a color bar which maps values to colors.
     fig.colorbar(surf, shrink = 0.5, aspect = 5);
-    plt.show();
+
+    ax.set_title(f"Cut-off value: {start_check_limit}, usable ace: {usable_ace}")
+    ax.set_xlabel("Dealer card at hand value")
+    ax.set_ylabel("Player sum at hand")
+    ax.set_zlabel("Average win")
+
+    # plt.show()
+
+    if save_to_file:
+        plt.savefig(f"img/graph_ace_{usable_ace}_{start_check_limit}.png")
+    
 
 if __name__ == '__main__':
-    usable_ace = False
+    for usable_ace in [False, True]:
+        for start_check_limit in range(15, 21):
+            print(f"Generating data and graph for: limit={start_check_limit}, usable_ace={usable_ace}")
 
-    start_check_limit = 15
-    game_results = []
-    for iteration in range(100000):
-        result = Game(usable_ace).play(start_check_limit)
-        game_results.append(result)
+            game_results = []
 
-    plot_groups = get_plot_groups()
-    plot(plot_groups, start_check_limit)
+            for iteration in range(100000):
+                result = Game(usable_ace).play(start_check_limit)
+                game_results.append(result)
+
+            plot_groups = get_plot_groups()
+            plot(plot_groups, start_check_limit, usable_ace, save_to_file=True)
