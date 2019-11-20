@@ -59,8 +59,8 @@ def plot(plot_groups, start_check_limit, usable_ace, save_to_file=False):
     
 
 if __name__ == '__main__':
-    for usable_ace in [False]:
-        for start_check_limit in range(19,20):
+    for usable_ace in [False, True]:
+        for start_check_limit in range(15, 21):
             print(f"Generating data and graph for: limit={start_check_limit}, usable_ace={usable_ace}")
 
             game_results = []
