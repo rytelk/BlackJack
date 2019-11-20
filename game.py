@@ -14,11 +14,14 @@ class Game:
         self.init_player_cards()
 
         while self.get_player_cards_sum() < start_check_limit:
-           self.player_cards.append(self.deck.GetTopCardValue(self.player_has_ace()))
+           self.player_cards.append(self.deck.GetTopCardValue(self.get_player_cards_sum()))
+
+        while self.get_dealer_cards_sum() < 17:
+            self.dealer_cards.append(self.deck.GetTopCardValue(self.get_dealer_cards_sum()))
 
         if self.get_player_cards_sum() > 21:
             win = -1
-        if self.get_player_cards_sum() == 21:
+        elif self.get_player_cards_sum() == 21:
             win = 1
         elif self.get_player_cards_sum() >= self.get_dealer_cards_sum():
             win = 1
@@ -28,13 +31,13 @@ class Game:
         return GameResult(self.get_player_cards_sum(), self.showing_card, win)
 
     def init_dealer_cards(self):
-        self.showing_card = self.deck.GetTopCardValue(False)
+        self.showing_card = self.deck.GetTopCardValue(0)
         self.dealer_cards.append(self.showing_card)
-        self.dealer_cards.append(self.deck.GetTopCardValue(False))
+        self.dealer_cards.append(self.deck.GetTopCardValue(self.get_dealer_cards_sum()))
 
     def init_player_cards(self):
-        self.player_cards.append(self.deck.GetTopCardValue(self.player_has_ace()))
-        self.player_cards.append(self.deck.GetTopCardValue(self.player_has_ace()))
+        self.player_cards.append(self.deck.GetTopCardValue(0))
+        self.player_cards.append(self.deck.GetTopCardValue(self.get_dealer_cards_sum()))
 
     def get_player_cards_sum(self):
         return sum(self.player_cards)
@@ -44,6 +47,12 @@ class Game:
 
     def player_has_ace(self):
         if 11 in self.player_cards:
+            return True
+
+        return False
+
+    def dealer_has_ace(self):
+        if 11 in self.dealer_cards:
             return True
 
         return False

@@ -12,22 +12,24 @@ class Deck:
     def __init__(self, _usableAce):
         self.usableAce = _usableAce;
         self.cards = [];
-
-        for color in ["TREFL", "KARO", "KIER", "PIK"]:
-            for figure in ([str(k) for k in range(2, 11)] + ["J", "Q", "K", "A"]):
-                self.cards.append( Card(figure, color) );
+    
+        for i in range(4):
+            for color in ["TREFL", "KARO", "KIER", "PIK"]:
+                for figure in ([str(k) for k in range(2, 11)] + ["J", "Q", "K", "A"]):
+                    self.cards.append( Card(figure, color) );
+        
         random.shuffle(self.cards);
         return;
 
-    def GetTopCardValue(self, player_second_ace):
+    def GetTopCardValue(self, current_sum):
         topCardFigure = self.cards[-1].figure;
         topCardValue = 0;
         
         if topCardFigure == "A":
-            if self.usableAce and player_second_ace:
-                topCardValue = 1;
+            if self.usableAce and current_sum + 11 > 21:
+                topCardValue = 1
             else:
-                topCardValue = 11;
+                topCardValue = 11
         elif topCardFigure in ["J", "Q", "K"]:
             topCardValue = 10;
         else:
