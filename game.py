@@ -16,7 +16,7 @@ class Game:
     def play(self, start_check_limit):
         self.init_dealer_cards() # two cards for dealer
         self.init_player_cards() # two cards for player
-
+        
         if(self.get_player_cards_sum() == 21):
             # natural when dealer also has 21
             win = 0 if self.get_dealer_cards_sum() == 21 else 1

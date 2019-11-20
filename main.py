@@ -38,9 +38,10 @@ def plot(plot_groups, start_check_limit, usable_ace, save_to_file=False):
     Z = np.array(Z)
     surf = ax.plot_surface(X, Y, Z, cmap = cm.coolwarm, linewidth = 0, antialiased = False);
 
-    # Customize the z axis.
-    ax.set_zlim(-1, 1);
-    ax.zaxis.set_major_locator(LinearLocator(10));
+    ax.set_xlim(2, 12)
+    ax.set_ylim(15, 22)
+    ax.set_zlim(-1, 1)
+    ax.zaxis.set_major_locator(LinearLocator(10))
     ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'));
 
     # Add a color bar which maps values to colors.
@@ -51,7 +52,6 @@ def plot(plot_groups, start_check_limit, usable_ace, save_to_file=False):
     ax.set_ylabel("Player sum at hand")
     ax.set_zlabel("Average win")
 
-
     plt.show()
 
     if save_to_file:
@@ -59,7 +59,7 @@ def plot(plot_groups, start_check_limit, usable_ace, save_to_file=False):
     
 
 if __name__ == '__main__':
-    for usable_ace in [False, True]:
+    for usable_ace in [True, False]:
         for start_check_limit in range(15, 21):
             print(f"Generating data and graph for: limit={start_check_limit}, usable_ace={usable_ace}")
 
