@@ -51,15 +51,16 @@ def plot(plot_groups, start_check_limit, usable_ace, save_to_file=False):
     ax.set_ylabel("Player sum at hand")
     ax.set_zlabel("Average win")
 
-    # plt.show()
+
+    plt.show()
 
     if save_to_file:
         plt.savefig(f"img/graph_ace_{usable_ace}_{start_check_limit}.png")
     
 
 if __name__ == '__main__':
-    for usable_ace in [False, True]:
-        for start_check_limit in range(15, 21):
+    for usable_ace in [False]:
+        for start_check_limit in range(19,20):
             print(f"Generating data and graph for: limit={start_check_limit}, usable_ace={usable_ace}")
 
             game_results = []
